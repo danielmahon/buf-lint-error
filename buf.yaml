@@ -1,0 +1,15 @@
+version: v1beta1
+
+deps:
+  - buf.build/beta/googleapis
+build:
+  roots:
+    - packages/protos/services
+lint:
+  use:
+    - DEFAULT # the current strictest possible
+  ignore:
+    - google
+breaking:
+  use:
+    - FILE
