@@ -10,23 +10,12 @@ service GreeterService {
   rpc Ping (PingRequest) returns (PingResponse) {
     option (google.api.http) = { get: "/ping" };
   }
-  rpc SayHello (SayHelloRequest) returns (SayHelloResponse) {
-    option (google.api.http) = { get: "/v1/say-hello/{name}" };
-  }
-  rpc GetLocations (GetLocationsRequest) returns (GetLocationsResponse) {}
   rpc HandleTelemetry (HandleTelemetryRequest) returns (HandleTelemetryResponse) {
     option (google.api.http) = {
       post: "/telemetry"
       body: "data"
     };
   }
-  // Count stream
-  rpc SubscribeToCount(SubscribeToCountRequest) returns (stream SubscribeToCountResponse) {}
-  rpc UnsubscribeToCount(UnsubscribeToCountRequest) returns (UnsubscribeToCountResponse) {}
-}
-
-message HandleTelemetryRequest{
-  google.pubsub.v1.ReceivedMessage data = 1;
 }
 
 message PingRequest {}
@@ -35,42 +24,8 @@ message PingResponse {
   string message = 1;
 }
 
-message GetLocationsRequest {}
-
-message GetLocationsResponse {
-  repeated Location locations = 1;
-}
-
-message Location {
-  int32 id = 1;       
-  string name = 2;
-  int32 company_id = 3;       
+message HandleTelemetryRequest{
+  google.pubsub.v1.ReceivedMessage data = 1;
 }
 
 message HandleTelemetryResponse {}
-
-message Empty {}
-
-message SayHelloRequest {
-  string name = 1;
-}
-
-message SayHelloResponse {
-  string message = 1;
-}
-
-message SubscribeToCountRequest {
-  string id = 1;
-}
-
-message UnsubscribeToCountRequest {
-  string id = 1;
-}
-
-message SubscribeToCountResponse {
-  int32 count = 1;
-}
-
-message UnsubscribeToCountResponse {
-  bool success = 1;
-}
